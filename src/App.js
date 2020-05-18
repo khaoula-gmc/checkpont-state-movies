@@ -2,34 +2,42 @@ import React,{useState} from 'react';
 import './App.css';
 import Modal from './Modal'
 import MovieCard from './MovieCard'
+import foret from './img/foret.jpg'
+import croods from './croods.jpg'
+import Dune from './img/Dune.jpg'
+import Mulan from './img/Mulan.jpg'
+import soul from './img/soul.jpg'
+// import Search from './Search'
+
+
 
 function App() {
+const movieList=[{title:"L'appel de la forêt", Poster:{foret}, date:2020, rate:5 },
+{title:'croods', Poster:{croods}, date:2020, rate:5 },
+{title:'Dune', Poster:{Dune}, date:2020, rate:5 },
+{title:'Mulan', Poster:{Mulan}, date:2020, rate:5 },
+{title:'soul', Poster:{soul}, date:2020, rate:5 }
+]
 
-  const [movies,setMovies]=useState([])
-  const movie1={title:"L'appel de la forêt", Poster:'./img/foret.jpg', date:'2020', rate:5 }
-  setMovies({...movies,movie1})
-  const movie2={title:"L'appel de la forêt", Poster:'./img/foret.jpg', date:'2020', rate:5 }
-  setMovies({...movies,movie2})
-  const movie3={title:"L'appel de la forêt", Poster:'./img/foret.jpg', date:'2020', rate:5 }
-  setMovies({...movies,movie3})
-  const movie4={title:"L'appel de la forêt", Poster:'./img/foret.jpg', date:'2020', rate:5 }
-  setMovies({...movies,movie4})
-  const movie5={title:"L'appel de la forêt", Poster:'./img/foret.jpg', date:'2020', rate:5 }
-  setMovies({...movies,movie5})
-  
 
-  const addMovie=(movie)=>movie!=={}?setMovies(...movies,movie):setMovies(...movies)
+const [movies,setMovies]=useState(movieList)
   
-  const [stateModal,setStateModal]=useState(false)
-  const toggle=()=>{setStateModal(!stateModal)}
+const addMovie=(movie)=>setMovies(movie,...movies)
   
-  return (
+const [stateModal,setStateModal]=useState(false)
+const toggle=()=>{setStateModal(!stateModal)}
+  
+return (
     <div className="App">
-      <button className='button' onClick={toggle}>Add Movie</button>
- 
-      {movies.map((movie)=><MovieCard movie={movie}></MovieCard>)}
+      <div className="topnav">
+          <button className='button' onClick={toggle}>Add Movie</button>
+          <input id='search' type="text" placeholder="Search by title or rate.."/>
+      </div>
+   
+      <div className='movieList'>
+          {movies.map((movie, i) => (<MovieCard movie={movie} key={i} />))}
+      </div>
       <Modal stateModal={stateModal}  cache={toggle} addMovie={addMovie}/>
-      
     </div>
   );
 }
