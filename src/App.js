@@ -60,16 +60,7 @@ function App() {
   
   
   const [search,setSearch]=useState('')
-  // const [result, setResult] = useState(movies);
-  
-  
     
-    
-  
-  console.log(`search ${search}`)
-  
- 
-  
 
   return (
     <div className="App">
@@ -83,8 +74,6 @@ function App() {
           type="text"
           placeholder="Search by title or rate.."
           onChange={(e)=>setSearch(e.target.value)}
-            
-           
         />
         
       </div>
