@@ -32,16 +32,17 @@ const Modal = props => {
               
               <input
                 className="poster"
-                type="text"
-                placeholder="Poster"
+                type="url"
+                placeholder="Valid url..."
                 onChange={e => props.setPoster(e.target.value)}
                 required
               />
             
               
               <input
-                type="text"
-                placeholder="date"
+                type="number"
+                placeholder="Year"
+                min={1950}
                 onChange={e => props.setDate(e.target.value)}
                 required
                 
