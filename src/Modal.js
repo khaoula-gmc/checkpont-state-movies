@@ -1,11 +1,17 @@
 import React from "react";
 import "./App.css";
+import StarRating from './StarRating'
 
-const Modal = props => {
+
+const Modal = ({stateModal,setTitle,setPoster,setDate,rate,setRate,addMovie,cache}) => {
   const handleSubmit = e => {
-    props.addMovie(e);
+    addMovie(e);
+    cache()
   };
-  return props.stateModal ? (
+
+  
+ 
+  return stateModal ? (
     <React.Fragment>
       <div className="overlay" />
       <div className="wrapper">
@@ -25,7 +31,7 @@ const Modal = props => {
               <input
                 type="text"
                 placeholder="Title"
-                onChange={e => props.setTitle(e.target.value)}
+                onChange={e => setTitle(e.target.value)}
                 required
               />
             
@@ -34,7 +40,7 @@ const Modal = props => {
                 className="poster"
                 type="url"
                 placeholder="Valid url..."
-                onChange={e => props.setPoster(e.target.value)}
+                onChange={e => setPoster(e.target.value)}
                 required
               />
             
@@ -43,29 +49,23 @@ const Modal = props => {
                 type="number"
                 placeholder="Year"
                 min={1950}
-                onChange={e => props.setDate(e.target.value)}
+                onChange={(e) => setDate(e.target.value)}
                 required
                 
               />
-           
+            <div className='stars'>
+              <StarRating 
+              edit={true}
+              setRate={setRate}
               
-              <select
-                id="rate"
-                onChange={e => props.setRate(e.target.value)}
-                required
-              >
-                <option placeholder='0'></option>  
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
+            
+            />
+            </div>  
             </div>
             </div>
             <div className='modal-footer'>
             <input type="submit" value="Add movie" className="modal-button, button1" />
-            <input type='button' className="modal-button, button2" value='Cancel' onClick={props.cache}/>
+            <input type='button' className="modal-button, button2" value='Cancel' onClick={cache}/>
               
             </div>
           </form>

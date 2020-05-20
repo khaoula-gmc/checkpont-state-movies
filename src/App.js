@@ -1,13 +1,17 @@
+//                    Title: Checkpoint Movie List
+//                    author: Khaoula TOUATI
+//                    Date:20/05/2020
 import React, { useState } from "react";
 import "./App.css";
 import Modal from "./Modal";
 import MovieCard from "./MovieCard";
-import Proptypes from 'prop-types';
+import StarRatingSearch from './StarRatingSearch'
 
 
 
 
 function App() {
+  /***************************************Movie List initialisation***************************** */
   const movieList = [
     {
       title: "L'appel de la forêt",
@@ -36,19 +40,16 @@ function App() {
       rate: 5 }
   ];
 
+  
+  /*********************************Movie states********************************* */
   const [movies, setMovies] = useState(movieList);
   const [title, setTitle] = useState("");
   const [rate, setRate] = useState("");
   const [poster, setPoster] = useState("");
   const [date, setDate] = useState("");
 
-  movies.Proptypes={
-    title:Proptypes.string,
-    poster:Proptypes.string,
-    date:Proptypes.number,
-    rate:Proptypes.number
-  }
-
+ 
+/*****************************Add new movie in the movie list************************* */
   const addMovie = e => {
     e.preventDefault();
     let newMovie = {
@@ -59,35 +60,64 @@ function App() {
     };
     return setMovies([...movies, newMovie]);
   };
-
+/***************************Modal display*************************************** */
   const [stateModal, setStateModal] = useState(false);
   const toggle = () =>setStateModal(!stateModal);
-
-  const [search,setSearch]=useState('')
-    
-
+/********************Search declarations**************************************** */
+  const [searchByTitle,setSearchByTitle]=useState('')
+  const [searchByRate,setSearchByRate]=useState(0)
+  const[display,setDisplay]=useState('')
+  
+  
   return (
     <div className="App">
       <div className="topnav">
-        <button className="button" onClick={toggle}>
+        
+        <button 
+          className="button" 
+          onClick={toggle}>
           Add Movie
         </button>
+        {/* *****************Search inputs********************************* */}
+        <div className='search-div'>
+            <label className='search-lbl'>Search by:</label>
+            <select className='search-slct' 
+                    onChange={(e)=>{setDisplay(e.target.value)
+                                    setSearchByRate(0)
+                                    setSearchByTitle('')
+                                    }}>
+                  <option value='all'>all</option>
+                  <option value='title'>title</option>
+                  <option value='rate'>rate</option>
+              </select>
+      
+            {display==='rate'?
+            <StarRatingSearch
+            setSearchByRate={setSearchByRate}/>
+            :display==='title'?
+            <input 
+              id="search"
+              type="text"
+              placeholder="Search by title or rate.."
+              onChange={(e)=>setSearchByTitle(e.target.value)}
+            />
+            :null
+            }
         
-        <input 
-          id="search"
-          type="text"
-          placeholder="Search by title or rate.."
-          onChange={(e)=>setSearch(e.target.value)}
-        />
-        
+        </div>
       </div>
-
+  {/******************Search result***************************/}
       <div className="movieList">
-        {movies.filter(movie=>movie.title.indexOf(search)!==-1||movie.rate.toString().indexOf(search)!==-1).map((movie, i) => (
-          <MovieCard movie={movie} key={i} />
-        ))}
+        {(display==='title')?movies.filter(movie=>movie.title.toLowerCase().indexOf(searchByTitle.toLowerCase())!==-1).map((movie, i) => (
+              <MovieCard movie={movie} key={i} />
+              ))
+              :display==='rate'?movies.filter(movie=>movie.rate.toString().indexOf(searchByRate)!==-1).map((movie, i) => (
+                <MovieCard movie={movie} key={i} />))
+                  :movies.map((movie, i) => (
+                  <MovieCard movie={movie} key={i} />))
+        }
       </div>
-
+{/*************************Modal to add new movie**************************************** */}
       <Modal
         stateModal={stateModal}
         cache={toggle}

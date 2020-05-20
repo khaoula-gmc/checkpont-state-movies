@@ -1,4 +1,5 @@
 import React from 'react'
+import StarRating from './StarRating'
 
 
 
@@ -8,7 +9,7 @@ const MovieCard=({movie})=>{
             <img src={movie.poster} alt={movie.title} className='poster'/>
             <cite className='movieTitle'>{movie.title}</cite>
             <span className='MovieDate'>{movie.date}</span>
-            <span className='movieRate'>Rate:{movie.rate}</span>
+            <StarRating rateNumber={movie.rate} edit={false} />
 
         </div>
     )
