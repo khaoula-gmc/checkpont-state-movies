@@ -108,12 +108,14 @@ function App() {
       </div>
   {/******************Search result***************************/}
       <div className="movieList">
-        {(display==='title')?movies.filter(movie=>movie.title.toLowerCase().indexOf(searchByTitle.toLowerCase())!==-1).map((movie, i) => (
+        {display==='title'?movies.filter(movie=>movie.title.toLowerCase().indexOf(searchByTitle.toLowerCase())!==-1).map((movie, i) => (
               <MovieCard movie={movie} key={i} />
               ))
-              :display==='rate'?movies.filter(movie=>movie.rate.toString().indexOf(searchByRate)!==-1).map((movie, i) => (
-                <MovieCard movie={movie} key={i} />))
-                  :movies.map((movie, i) => (
+              :display==='rate'?
+                  searchByRate===0?movies.map((movie, i) => (<MovieCard movie={movie} key={i} />))
+                  :movies.filter(movie=>movie.rate.toString().indexOf(searchByRate)!==-1).map((movie, i) => (
+                    <MovieCard movie={movie} key={i} />))
+               :movies.map((movie, i) => (
                   <MovieCard movie={movie} key={i} />))
         }
       </div>
