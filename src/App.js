@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Modal from "./Modal";
 import MovieCard from "./MovieCard";
-import StarRatingSearch from './StarRatingSearch'
+import StarRating from './StarRating'
 
 
 
@@ -69,6 +69,7 @@ function App() {
   const[display,setDisplay]=useState('')
   
   
+  
   return (
     <div className="App">
       <div className="topnav">
@@ -92,7 +93,9 @@ function App() {
               </select>
       
             {display==='rate'?
-            <StarRatingSearch
+            <StarRating
+           edit={true}
+            behavior='search'
             setSearchByRate={setSearchByRate}/>
             :display==='title'?
             <input 
@@ -128,6 +131,7 @@ function App() {
         setPoster={setPoster}
         setDate={setDate}
         addMovie={addMovie}
+      
       />
       
       

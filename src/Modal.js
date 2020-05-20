@@ -3,7 +3,7 @@ import "./App.css";
 import StarRating from './StarRating'
 
 
-const Modal = ({stateModal,setTitle,setPoster,setDate,rate,setRate,addMovie,cache}) => {
+const Modal = ({stateModal,setTitle,setPoster,setDate,setBehavior,behavior,setRate,addMovie,cache}) => {
   const handleSubmit = e => {
     addMovie(e);
     cache()
@@ -55,6 +55,8 @@ const Modal = ({stateModal,setTitle,setPoster,setDate,rate,setRate,addMovie,cach
               />
             <div className='stars'>
               <StarRating 
+              
+              behavior='input'
               edit={true}
               setRate={setRate}
               
